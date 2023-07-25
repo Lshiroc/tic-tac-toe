@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=block");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration-line: none;
+  list-style-type: none;
+}
+
+body {
+  font-size: 100%;
+  background-color: #1e1b4b;
+}
+
+svg, img, picture, video {
+  display: block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+}/*# sourceMappingURL=global.css.map */
