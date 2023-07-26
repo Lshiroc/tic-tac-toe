@@ -1,3 +1,115 @@
 .title {
     font-family: 'Jua', sans-serif;
 }
+
+.playground {
+    .finishLine {
+        @keyframes lineX {
+            0% {
+                width: 0px;
+            }
+
+            100% {
+                width: 170px;
+            }
+        }
+
+        @keyframes lineY {
+            0% {
+                height: 0px;
+            }
+
+            100% {
+                height: 170px;
+            }
+        }
+
+        @mixin animationX {
+            transform-origin: left;
+            animation-name: lineX;
+            animation-duration: .5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        @mixin animationY {
+            animation-name: lineY;
+            animation-duration: .5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            transform-origin: top;
+        }
+
+        &.top {
+            top: 28px;
+            @include animationX;
+        }
+
+        &.midx {
+            top: 84px;
+            @include animationX;
+        }
+
+        &.bottom {
+            top: 140px;
+            @include animationX;
+        }
+
+        @keyframes crossAnimation {
+            0% {
+                width: 0px;
+            }
+
+            100% {
+                width: 238px;
+            }
+        }
+        
+        &.cross {
+            transform-origin: left;
+            transform: rotate(45deg);
+            width: 238px;
+            left: 0;
+            animation-name: crossAnimation;
+            animation-duration: .5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        &.left {
+            width: 4px;
+            height: 160px;
+            left: 28px;
+            @include animationY;
+        }
+
+        &.midy {
+            width: 4px;
+            height: 160px;
+            left: 84px;
+            @include animationY;
+        }
+
+        &.right {
+            width: 4px;
+            height: 160px;
+            left: 138px;
+            @include animationY;
+        }
+
+        &.crossReverse {
+            transform-origin: right;
+            transform: rotate(-45deg);
+            right: 0;
+            width: 238px;
+            animation-name: crossAnimation;
+            animation-duration: .5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+    }
+
+    &.stop {
+        pointer-events: none;
+    }
+}
