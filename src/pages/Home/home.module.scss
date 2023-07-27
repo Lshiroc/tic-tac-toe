@@ -2,6 +2,110 @@
     font-family: 'Jua', sans-serif;
 }
 
+.playerTurns {
+    .player {
+        @keyframes win {
+            0% {
+                transform-origin: bottom;
+                transform: rotate(10deg);
+                left: 0;
+                top: 0;
+            }
+
+            25% {
+                transform: rotate(-15deg);
+                left: -30px;
+                top: -10px;
+            }
+
+            75% {
+                transform: rotate(10deg);
+                left: -10px;
+                top: -5px;
+                z-index: 2;
+            }
+
+            100% {
+                transform: rotate(10deg);
+                left: -10px;
+                top: -5px;
+                z-index: 2;
+            }
+        }
+
+        &.winner {
+            .trophy {
+                animation-name: win;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+                animation-timing-function: ease-in-out;
+                animation-iteration-count: 1;
+            }
+        }
+
+        .trophy {
+            z-index: 0;
+        }
+
+        .text {
+            transition: opacity .3s, filter .3s; 
+            position: relative;
+            z-index: 1;
+        }
+
+        &.passive {
+            .text {
+                filter: grayscale(60%);
+            }
+        }
+    }
+
+    .tie {
+        opacity: 0;
+    }
+
+    &.tie {
+        .player {
+            opacity: 1 !important;
+            filter: none !important;
+        }
+
+        .tie {
+            width: 32px;
+            position: relative;
+            transition: .5s;
+            animation-name: tie;
+            animation-duration: .8s;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+        }
+    }
+
+    @keyframes tie {
+        0% {
+            opacity: 0;
+        }
+
+        20% {
+            transform: translateY(15px);
+        }
+
+        50% {
+            transform: translateY(-15px);
+        }
+
+        80% {
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    }
+}   
+
 .playground {
     .finishLine {
         @keyframes lineX {
@@ -10,7 +114,7 @@
             }
 
             100% {
-                width: 170px;
+                width: 100%;
             }
         }
 
@@ -20,7 +124,7 @@
             }
 
             100% {
-                height: 170px;
+                height: 100%;
             }
         }
 
@@ -41,17 +145,17 @@
         }
 
         &.top {
-            top: 28px;
+            top: 48px;
             @include animationX;
         }
 
         &.midx {
-            top: 84px;
+            top: 144px;
             @include animationX;
         }
 
         &.bottom {
-            top: 140px;
+            top: 240px;
             @include animationX;
         }
 
@@ -61,14 +165,14 @@
             }
 
             100% {
-                width: 238px;
+                width: 141%;
             }
         }
         
         &.cross {
             transform-origin: left;
             transform: rotate(45deg);
-            width: 238px;
+            width: 141%;
             left: 0;
             animation-name: crossAnimation;
             animation-duration: .5s;
@@ -78,22 +182,19 @@
 
         &.left {
             width: 4px;
-            height: 160px;
-            left: 28px;
+            left: 46px;
             @include animationY;
         }
 
         &.midy {
             width: 4px;
-            height: 160px;
-            left: 84px;
+            left: 142px;
             @include animationY;
         }
 
         &.right {
             width: 4px;
-            height: 160px;
-            left: 138px;
+            left: 238px;
             @include animationY;
         }
 
@@ -101,7 +202,7 @@
             transform-origin: right;
             transform: rotate(-45deg);
             right: 0;
-            width: 238px;
+            width: 141%;
             animation-name: crossAnimation;
             animation-duration: .5s;
             animation-iteration-count: 1;
@@ -111,5 +212,57 @@
 
     &.stop {
         pointer-events: none;
+    }
+
+    table tbody {
+        tr {
+            .block {
+                font-family: 'Jua', sans-serif;
+
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .img {
+                    width: 56px;
+                    height: 56px;
+                    filter: drop-shadow(0px 10px 4px #4444dd);
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .circle {
+                    width: 52px;
+                    height: 52px;
+                    border: 7px solid white;
+                    filter: drop-shadow(0px 10px 4px #dd44c4);
+
+                    justify-self: center;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        td {
+            border-top: none;
+            
+            &:nth-child(1) {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+
+        tr:nth-child(3) {
+            td {
+                border-bottom: none;
+            }
+        }
     }
 }
