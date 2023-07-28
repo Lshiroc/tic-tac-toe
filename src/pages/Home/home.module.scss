@@ -59,26 +59,85 @@
             }
         }
     }
+    
+    @keyframes btnAppear {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
 
     .tie {
-        opacity: 0;
+        width: 32px;
+        height: 32px;
+        position: relative;
+
+            img {
+                opacity: 0;
+                position: absolute;
+            }
+
+        .restart {
+            position: relative;
+            top: 45px;
+            cursor: pointer;
+        }
+    }
+
+    &.onePlayerWin {
+        .tie {
+            .restart {
+                top: 0;
+                animation-name: btnAppear;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+                animation-duration: 1s;
+            }
+        }
     }
 
     &.tie {
         .player {
             opacity: 1 !important;
-            filter: none !important;
+            filter: none;
+
+            &.player1 {
+                filter: drop-shadow(0px 0px 10px #ec4899);
+            }
+
+            &.player2 {
+                filter: drop-shadow(0px 0px 10px #3b82f6);
+            }
         }
 
         .tie {
-            width: 32px;
             position: relative;
             transition: .5s;
-            animation-name: tie;
-            animation-duration: .8s;
-            animation-iteration-count: 1;
-            animation-timing-function: ease-in-out;
-            animation-fill-mode: forwards;
+
+            @keyframes disappear {
+                0% {
+                    opacity: 1;
+                }
+                
+                100% {
+                    opacity: 0;
+                }
+            }
+
+            .handshake {
+                animation: .8s 1 forwards ease-in-out tie; 
+            }
+
+            .restart {
+                animation-delay: .8s;
+                animation-name: btnAppear;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+                animation-duration: 1s;
+            }
         }
     }
 
@@ -108,6 +167,8 @@
 
 .playground {
     .finishLine {
+        z-index: 1;
+
         @keyframes lineX {
             0% {
                 width: 0px;
@@ -145,17 +206,17 @@
         }
 
         &.top {
-            top: 48px;
+            top: calc(100%/5.8 - 8px);
             @include animationX;
         }
 
         &.midx {
-            top: 144px;
+            top: calc(50% - 4px);
             @include animationX;
         }
 
         &.bottom {
-            top: 240px;
+            top: calc(5*(100%/6) - 3px);
             @include animationX;
         }
 
@@ -172,8 +233,8 @@
         &.cross {
             transform-origin: left;
             transform: rotate(45deg);
-            width: 141%;
-            left: 0;
+            width: 140%;
+            left: 2px;
             animation-name: crossAnimation;
             animation-duration: .5s;
             animation-iteration-count: 1;
@@ -181,27 +242,27 @@
         }
 
         &.left {
-            width: 4px;
-            left: 46px;
+            width: 8px;
+            left: calc(100%/5.8 - 8px);
             @include animationY;
         }
 
         &.midy {
-            width: 4px;
-            left: 142px;
+            width: 8px;
+            left: calc(50% - 4px);
             @include animationY;
         }
 
         &.right {
-            width: 4px;
-            left: 238px;
+            width: 8px;
+            left: calc(5*(100%/6) - 3px);
             @include animationY;
         }
 
         &.crossReverse {
             transform-origin: right;
             transform: rotate(-45deg);
-            right: 0;
+            right: 2px;
             width: 141%;
             animation-name: crossAnimation;
             animation-duration: .5s;
@@ -209,6 +270,16 @@
             animation-fill-mode: forwards;
         }
     }
+
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     width: 15px;
+    //     left: 0;
+    //     bottom: 0;
+    //     top: 0;
+    //     background: linear-gradient(to right, #1e1b4b, transparent);
+    // }
 
     &.stop {
         pointer-events: none;
@@ -228,7 +299,8 @@
                 .img {
                     width: 56px;
                     height: 56px;
-                    filter: drop-shadow(0px 10px 4px #4444dd);
+                    filter: drop-shadow(-2px 3px 0px #3b82f6)
+                            drop-shadow(0px 0px 2px #2563eb);
 
                     img {
                         width: 100%;
@@ -239,7 +311,8 @@
                     width: 52px;
                     height: 52px;
                     border: 7px solid white;
-                    filter: drop-shadow(0px 10px 4px #dd44c4);
+                    filter: drop-shadow(-2px 3px 0px #ec4899)
+                            drop-shadow(0px 0px 2px #db2777);
 
                     justify-self: center;
                     border-radius: 50%;

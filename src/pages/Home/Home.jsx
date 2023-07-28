@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import handshake from './../../assets/icons/handshake.svg';
 import trophy from './../../assets/icons/trophy.svg';
 import cross from './../../assets/icons/cross.svg';
-
+import restartIcon from './../../assets/icons/restart.svg';
 
 export default function Home() {
     const [player, setPlayer] = useState("player1");
@@ -95,6 +95,18 @@ export default function Home() {
         }
     }
 
+    const restartGame = () => {
+        setIsPlaying(true);
+        setStatus("playing");
+        setBlocks([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]);
+        setCurrLinePosition(null);
+        setPlayer("player1");
+    }
+
     return  (
         <main className={`flex flex-col items-center text-slate-50 ${style.main}`}>
             <h1 className={`text-center text-5xl mt-14 ${style.title}`}>
@@ -104,31 +116,32 @@ export default function Home() {
                 <span className="text-blue-600">-o-</span>
                 Toe
             </h1>
-            <div className={`mt-24 grid grid-flow-col auto-cols-auto gap-x-8 items-center ${style.playerTurns} ${status == "tie" && style.tie}`}>
-                <div className={`relative ${style.player} ${status == "player1" && style.winner} ${player == "player2" && status == "playing" && style.passive}`}>
+            <div className={`mt-20 grid grid-flow-col auto-cols-auto gap-x-8 items-center ${style.playerTurns} ${status == "tie" ? style.tie : status == "player1" ? style.onePlayerWin : status == "player2" && style.onePlayerWin }`}>
+                <div className={`relative ${style.player} ${style.player1} ${status == "player1" && style.winner} ${player == "player2" && status == "playing" && style.passive}`}>
                     <div className={`absolute top-0 w-8 h-8 ${style.trophy}`}>
                         <img src={trophy} draggable="false" alt="Trophy" />
                     </div>
-                    <p className={`px-4 py-2 bg-pink-500 rounded text-xl shadow-md ${style.text}`}>player1</p>
+                    <p className={`px-4 py-2 bg-pink-500 rounded text-xl shadow-md ${style.text}`}>Player X</p>
                 </div>
                 <div className={style.tie}>
-                    <img src={handshake} draggable="false" alt="Tie" />
+                    <img src={handshake} className={style.handshake} draggable="false" alt="Tie" />
+                    <img onClick={() => restartGame()} src={restartIcon} className={style.restart} draggable="false" alt="Restart" />
                 </div>
-                <div className={`relative ${style.player} ${status == "player2" && style.winner} ${player == "player1" && status == "playing" && style.passive}`}>
+                <div className={`relative ${style.player} ${style.player2} ${status == "player2" && style.winner} ${player == "player1" && status == "playing" && style.passive}`}>
                     <div className={`absolute top-0 w-8 h-8 ${style.trophy}`}>
                         <img src={trophy} draggable="false" alt="Trophy" />
                     </div>
-                    <p className={`px-4 py-2 bg-blue-500 rounded text-xl shadow-md ${style.text}`}>player2</p>
+                    <p className={`px-4 py-2 bg-blue-500 rounded text-xl shadow-md ${style.text}`}>Player O</p>
                 </div>
             </div>
-            <div className={`mt-24 grid relative ${style.playground} ${!isPlaying && style.stop}`}>
-                <div className={`h-1 rounded bg-neutral-100 absolute ${style.finishLine} ${currLinePosition}`}></div>
+            <div className={`mt-12 grid relative ${style.playground} ${!isPlaying && style.stop}`}>
+                <div className={`h-2 rounded bg-purple-600 absolute ${style.finishLine} ${currLinePosition}`}></div>
                 <table>
                     <tbody>
                         <tr>
                             {
                                 blocks[0].map((item, index) => (
-                                    <td key={index} onClick={() => item == 0 && update(0, index)} className={`w-24 h-24 text-center text-5xl border-2 border-rose-500 ${style.block}`}><span>
+                                    <td key={index} onClick={() => item == 0 && update(0, index)} className={`w-24 h-24 text-center text-5xl border-8 border-slate-100 ${style.block}`}><span>
                                         {
                                             item == "O" ? (
                                                 <div className={style.circle}></div>
@@ -145,7 +158,7 @@ export default function Home() {
                         <tr>
                             {
                                 blocks[1].map((item, index) => (
-                                    <td key={index} onClick={() => item == 0 && update(1, index)} className={`w-24 h-24 text-center text-5xl  border-2 border-rose-500 ${style.block}`}><span>
+                                    <td key={index} onClick={() => item == 0 && update(1, index)} className={`w-24 h-24 text-center text-5xl  border-8 border-slate-100 ${style.block}`}><span>
                                         {
                                             item == "O" ? (
                                                 <div className={style.circle}></div>
@@ -162,7 +175,7 @@ export default function Home() {
                         <tr>
                             {
                                 blocks[2].map((item, index) => (
-                                    <td key={index} onClick={() => item == 0 && update(2, index)} className={`w-24 h-24 text-center text-5xl border-2 border-rose-500 ${style.block}`}><span>
+                                    <td key={index} onClick={() => item == 0 && update(2, index)} className={`w-24 h-24 text-center text-5xl border-8 border-slate-100 ${style.block}`}><span>
                                         {
                                             item == "O" ? (
                                                 <div className={style.circle}></div>
