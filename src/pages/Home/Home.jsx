@@ -109,14 +109,14 @@ export default function Home() {
 
     return  (
         <main className={`flex flex-col items-center text-slate-50 ${style.main}`}>
-            <h1 className={`text-center text-5xl mt-14 ${style.title}`}>
+            <h1 className={`text-center text-4xl sm:text-5xl mt-10 sm:mt-14 ${style.title}`}>
                 Tic
                 <span className="text-pink-500">-x-</span>
                 Tac
                 <span className="text-blue-600">-o-</span>
                 Toe
             </h1>
-            <div className={`mt-20 grid grid-flow-col auto-cols-auto gap-x-8 items-center ${style.playerTurns} ${status == "tie" ? style.tie : status == "player1" ? style.onePlayerWin : status == "player2" && style.onePlayerWin }`}>
+            <div className={`mt-14 sm:mt-20 grid grid-flow-col auto-cols-auto gap-x-4 sm:gap-x-8 items-center ${style.playerTurns} ${status == "tie" ? style.tie : status == "player1" ? style.onePlayerWin : status == "player2" && style.onePlayerWin }`}>
                 <div className={`relative ${style.player} ${style.player1} ${status == "player1" && style.winner} ${player == "player2" && status == "playing" && style.passive}`}>
                     <div className={`absolute top-0 w-8 h-8 ${style.trophy}`}>
                         <img src={trophy} draggable="false" alt="Trophy" />
